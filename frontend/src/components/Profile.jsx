@@ -43,65 +43,88 @@ const Profile = () => {
     >
       <Navbar />
       <motion.div
-        className='max-w-4xl mx-auto  border border-gray-200 rounded-2xl my-5 p-8'
+        className='max-w-4xl mx-auto border border-gray-200 rounded-2xl my-5 p-8 shadow-lg'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <div className='flex justify-between'>
           <div className='flex items-center gap-4'>
-            <Avatar className="h-24 w-24">
+            <Avatar className="h-28 w-28 border-4 border-black shadow-xl transform hover:scale-110 transition-all duration-300 ease-in-out">
               <AvatarImage src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg" alt="profile" />
             </Avatar>
             <div>
-              <h1 className='font-medium text-xl'>{user?.fullname}</h1>
-              <p>{user?.profile?.bio}</p>
+              <h1 className='font-extrabold text-2xl text-black'>{user?.fullname}</h1>
+              <p className='text-lg text-blue-700'>{user?.profile?.bio}</p>
             </div>
           </div>
           <motion.div whileHover={{ scale: 1.1 }}>
-            <Button onClick={() => setOpen(true)} className="text-right" variant="outline">
+            <Button
+              onClick={() => setOpen(true)}
+              className="text-right text-lg font-semibold py-2 px-4 border-2 border-gray-500 hover:border-gray-700 rounded-md transition-all duration-300 ease-in-out"
+              variant="outline"
+            >
               <Pen />
             </Button>
           </motion.div>
         </div>
-        <div className='my-5'>
-          <div className='flex items-center gap-3 my-2'>
-            <Mail />
-            <span>{user?.email}</span>
+
+        <div className='my-6'>
+          <div className='flex items-center gap-3 my-3'>
+            <Mail className='text-gray-500' />
+            <span className='text-lg text-black'>{user?.email}</span>
           </div>
-          <div className='flex items-center gap-3 my-2'>
-            <Contact />
-            <span>{user?.phoneNumber}</span>
-          </div>
-        </div>
-        <div className='my-5'>
-          <h1>Skills</h1>
-          <div className='flex items-center gap-1'>
-            {user?.profile?.skills.length !== 0
-              ? user?.profile?.skills.map((item, index) => <Badge key={index}>{item}</Badge>)
-              : <span>NA</span>}
+          <div className='flex items-center gap-3 my-3'>
+            <Contact className='text-gray-500' />
+            <span className='text-lg text-black'>{user?.phoneNumber}</span>
           </div>
         </div>
-        <div className='grid w-full max-w-sm items-center gap-1.5'>
-          <Label className="text-md font-bold">Resume</Label>
+
+        <div className='my-6'>
+          <h1 className='text-2xl font-bold text-black mb-3'>Skills</h1>
+          <div className='flex flex-wrap gap-4'>
+  {user?.profile?.skills.length !== 0
+    ? user?.profile?.skills.map((item, index) => (
+      <motion.div 
+        key={index} 
+        className="text-lg font-medium py-2 px-4 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-800 hover:shadow-lg transform transition-all duration-300 ease-in-out"
+        whileHover={{ scale: 1.1 }}  // Adds hover scaling effect
+      >
+        {item}
+      </motion.div>
+    ))
+    : <span className='text-black'>NA</span>
+  }
+</div>
+
+        </div>
+
+        <div className='grid w-full max-w-sm items-center gap-2'>
+          <Label className="text-lg font-bold text-black">Resume</Label>
           {isResume ? (
-            <a target='blank' href={user?.profile?.resume} className='text-blue-500 w-full hover:underline cursor-pointer'>
+            <a
+              target='_blank'
+              href={user?.profile?.resume}
+              className='text-blue-400 text-lg hover:underline font-semibold transition-all duration-300 ease-in-out'
+            >
               {user?.profile?.resumeOriginalName}
             </a>
           ) : (
-            <span>NA</span>
+            <span className='text-black'>NA</span>
           )}
         </div>
       </motion.div>
+
       <motion.div
-        className='max-w-4xl mx-auto  rounded-2xl'
+        className='max-w-4xl mx-auto rounded-2xl my-8'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <h1 className='font-bold text-lg my-5'>Applied Jobs</h1>
+        <h1 className='font-bold text-2xl text-black my-5'>Applied Jobs</h1>
         <AppliedJobTable />
       </motion.div>
+
       <UpdateProfileDialog open={open} setOpen={setOpen} />
     </motion.div>
   );
