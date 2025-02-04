@@ -55,7 +55,13 @@ const Profile = () => {
             </Avatar>
             <div>
               <h1 className='font-extrabold text-2xl text-black'>{user?.fullname}</h1>
-              <p className='text-lg text-blue-700'>{user?.profile?.bio}</p>
+              <p 
+  className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-500 
+             bg-clip-text text-transparent transition-all duration-300 
+             hover:scale-105 hover:from-purple-500 hover:to-blue-600"
+>
+  {user?.profile?.bio || "Tell the world about yourself in style! 🚀"}
+</p>
             </div>
           </div>
           <motion.div whileHover={{ scale: 1.1 }}>
